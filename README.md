@@ -20,7 +20,7 @@ $ npm install koa-server-timing
 ```js
 var koa = require('koa');
 var app = koa();
-app.use(require('koa-server-timing')({ total: true }));
+app.use(require('koa-server-timing')({ total: true /* default to NODE_ENV !== 'production' */ }));
 ```
 
 ### Options
