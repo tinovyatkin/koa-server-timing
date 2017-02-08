@@ -1,4 +1,4 @@
-const slug = require('slug');
+const slug = require('slugify');
 const assert = require('assert');
 
 module.exports = ({ total } = { total: process.env.NODE_ENV !== 'production' }) => async (ctx, next) => {
