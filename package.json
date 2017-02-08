@@ -48,9 +48,6 @@
     "remark-preset-lint-recommended": "^1.0.0",
     "supertest": "^3.0.0"
   },
-  "dependencies": {
-    "slugify": "^1.1.0"
-  },
   "eslintConfig": {
     "plugins": [
       "jest",
