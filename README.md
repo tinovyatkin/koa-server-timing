@@ -54,7 +54,7 @@ app.use(async (ctx, next) => {
   - Uses `process.hrtime`, so, no extra timiers and very precisse
 
 ### See also
-  - See thomasbrueggemann/node-servertiming for non-Koa version that uses Timers
+  - See [`@thomasbrueggemann/node-servertiming`](https://github.com/thomasbrueggemann/node-servertiming) for non-Koa version that uses Timers
 
 ## License
 
