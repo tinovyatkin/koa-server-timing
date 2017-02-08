@@ -27,7 +27,7 @@ module.exports = ({ total } = {}) => async (ctx, next) => {
   await next();
 
   // Terminate all spans that wasn't explicitely terminated
-  ctx.state.timings.all.forEach(timing => { if (timing.stop) timing.stop = process.hrtime(timing.start); });
+  ctx.state.timings.all.forEach(timing => { if (!timing.stop) timing.stop = process.hrtime(timing.start); });
 
   // constructing headers array
   const metrics = [];
