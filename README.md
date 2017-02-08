@@ -53,6 +53,8 @@ app.use(async (ctx, next) => {
   - Small, only dependency is `node-slug` for nice slugs from emoji
   - Uses `process.hrtime`, so, no extra timiers and very precisse
 
+### See also
+  - See thomasbrueggemann/node-servertiming for non-Koa version that uses Timers
 
 ## License
 
