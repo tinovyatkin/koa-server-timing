@@ -1,7 +1,7 @@
 const slug = require('slug');
 const assert = require('assert');
 
-module.exports = ({ total } = {}) => async (ctx, next) => {
+module.exports = ({ total } = { total: process.env.NODE_ENV !== 'production' }) => async (ctx, next) => {
   // attaching timings object to state
   ctx.state.timings = {
     all: new Map(),
@@ -37,6 +37,5 @@ module.exports = ({ total } = {}) => async (ctx, next) => {
   }
 
   // Adding our headers now
-  console.log(metrics.join(', '));
   if (metrics.length) ctx.append('Server-Timing', metrics.join(', '));
 };
