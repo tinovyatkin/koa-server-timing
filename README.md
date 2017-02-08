@@ -18,9 +18,15 @@ $ npm install koa-server-timing
 ## API
 
 ```js
-var koa = require('koa');
-var app = koa();
+const Koa = require('koa');
+const app = new Koa();
 app.use(require('koa-server-timing')({ total: true /* default to NODE_ENV !== 'production' */ }));
+
+ctx.state.timings.startSpan('A Task description', 'taskSlug' /* optional, will be created a-task-description, if missed */)
+
+/* ... do some long task to measure here */
+ctx.state.timings.stopSpan('A Task description' /* or 'taskSlug' or return from startSpan */);
+
 ```
 
 ### Options
@@ -50,8 +56,9 @@ app.use(async (ctx, next) => {
 ```
 
 ### Why
-  - Small, only dependency is `slugify` for nice slugs from emoji
-  - Uses `process.hrtime`, so, no extra timiers and very precisse
+
+  - Small, no dependencies, 100% test coverage
+  - Uses `process.hrtime`, so, no extra timers and very precise
 
 ### See also
   - See [`@thomasbrueggemann/node-servertiming`](https://github.com/thomasbrueggemann/node-servertiming) for non-Koa version that uses Timers
