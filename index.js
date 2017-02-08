@@ -7,15 +7,16 @@ module.exports = ({ total } = {}) => async (ctx, next) => {
     all: new Map(),
     startSpan(spanName) {
       const key = slug(spanName);
+      console.log(key);
       assert.ok(!this.all.has(key), 'This span is running already, name muse be unique!');
-      this.all.set(slug, { start: process.hrtime(), desc: spanName });
+      this.all.set(key, { start: process.hrtime(), desc: spanName });
       return key;
     },
     stopSpan(spanName) {
       const key = slug(spanName);
       assert.ok(this.all.has(key), 'Span to stop is not found!');
       assert.ok('start' in this.all.get(key), 'Span to stop were never started!');
-      const timing = this.all.get(slug);
+      const timing = this.all.get(key);
       timing.stop = process.hrtime(timing.start);
     }
   };
@@ -32,9 +33,10 @@ module.exports = ({ total } = {}) => async (ctx, next) => {
   // constructing headers array
   const metrics = [];
   for (const [key, { stop: [ sec, nanosec ], desc }] of ctx.state.timings.all) {
-    metrics.push(`${key}=${((sec * 1e9 + nanosec) / 1000).toFixed(1)}${key !== desc ? `; "${desc}"` : ''}`);
+    metrics.push(`${key}=${((sec * 1e9 + nanosec) / 1000000).toFixed(1)}${key !== desc ? `; "${desc}"` : ''}`);
   }
 
   // Adding our headers now
+  console.log(metrics.join(', '));
   if (metrics.length) ctx.append('Server-Timing', metrics.join(', '));
 };
