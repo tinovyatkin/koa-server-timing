@@ -21,7 +21,13 @@ app.use(route.get('/metric', async (ctx) => {
   ctx.body = 'This is test body 2';
   const slug = ctx.state.timings.startSpan('Another 1s task');
   // just waiting for 1000 ms
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  ctx.state.timings.stopSpan(slug);
+}));
+
+app.use(route.get('/badslug', async (ctx) => {
+  ctx.body = 'This is test body 2';
+  const slug = ctx.state.timings.startSpan("This's staff To be Converted to slug");
   ctx.state.timings.stopSpan(slug);
 }));
 
@@ -35,20 +41,27 @@ describe('normal requests', () => {
     server.close();
   });
 
-  test('should return Server-Timing with total in header', (done) =>
-    request(server)
+  test('should return Server-Timing with total in header', async () =>
+    await request(server)
     .get('/')
     .expect('Server-Timing', /total/)
     .expect(200)
-    .end(done)
     );
 
-  test('should return Server-Timing with two metrics and description', (done) =>
+  test('should return Server-Timing with two metrics and description', async () =>
     request(server)
     .get('/metric')
     .expect('Server-Timing', /total/)
     .expect('Server-Timing', /Another 1s task/)
     .expect(200)
-    .end(done)
+    );
+
+  test('should create correct slugs for Server-Timing metrics', async () =>
+    await request(server)
+    .get('/badslug')
+    .expect('Server-Timing', /total/)
+    .expect('Server-Timing', /This's staff To be Converted to slug/)
+    .expect('Server-Timing', /thiss-staff-to-be-converted-to-slug/)
+    .expect(200)
     );
 });
