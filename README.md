@@ -50,7 +50,7 @@ app.use(async (ctx, next) => {
 ```
 
 ### Why
-  - Small, only dependency is `node-slug` for nice slugs from emoji
+  - Small, only dependency is `slugify` for nice slugs from emoji
   - Uses `process.hrtime`, so, no extra timiers and very precisse
 
 ### See also
