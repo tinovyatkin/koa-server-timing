@@ -1,7 +1,6 @@
 const Koa = require('koa');
 const timings = require('./');
 const route = require('koa-route');
-const sleep = require('sleep');
 const request = require('supertest');
 
 const app = new Koa();
@@ -14,7 +13,8 @@ app.use(timings({ total: true }));
 
 app.use(route.get('/', async (ctx) => {
   ctx.body = 'This is test body';
-  sleep.sleep(1);
+  // just waiting for 1000 ms
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 }));
 
 describe('normal requests', () => {
