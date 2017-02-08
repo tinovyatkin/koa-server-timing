@@ -1,0 +1,18 @@
+language: node_js
+
+node_js:
+  - "7"
+
+git:
+  depth: 1
+
+after_script: "npm install coveralls@2 && cat ./coverage/lcov.info | coveralls"
+
+# cache node modules
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  # remove outdated deps, assists with cache maintenance
+  - npm prune
