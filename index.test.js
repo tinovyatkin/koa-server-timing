@@ -64,4 +64,11 @@ describe('normal requests', () => {
     .expect('Server-Timing', /thiss-staff-to-be-converted-to-slug/)
     .expect(200)
     );
+
+  test('should return time in seconds Server-Timing metrics', async () =>
+    await request(server)
+    .get('/')
+    .expect('Server-Timing', /total=1\./)
+    .expect(200)
+    );
 });
