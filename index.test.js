@@ -17,6 +17,14 @@ app.use(route.get('/', async (ctx) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 }));
 
+app.use(route.get('/metric', async (ctx) => {
+  ctx.body = 'This is test body 2';
+  const slug = ctx.state.timings.startSpan('Another 1s task');
+  // just waiting for 1000 ms
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  ctx.state.timings.stopSpan(slug);
+}));
+
 describe('normal requests', () => {
   let server;
   beforeAll(() => {
@@ -31,6 +39,15 @@ describe('normal requests', () => {
     request(server)
     .get('/')
     .expect('Server-Timing', /total/)
+    .expect(200)
+    .end(done)
+    );
+
+  test('should return Server-Timing with two metrics and description', (done) =>
+    request(server)
+    .get('/metric')
+    .expect('Server-Timing', /total/)
+    .expect('Server-Timing', /Another 1s task/)
     .expect(200)
     .end(done)
     );
