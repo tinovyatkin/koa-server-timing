@@ -22,7 +22,10 @@ $ npm install koa-server-timing
 ```js
 const Koa = require('koa');
 const app = new Koa();
-app.use(require('koa-server-timing')({ total: true /* default to NODE_ENV !== 'production' */ }));
+app.use(require('koa-server-timing')({
+  total: true, /* default to NODE_ENV !== 'production' */
+  convertMetricUnit: time => time * 1000, /* default to time => time */
+}));
 
 ctx.state.timings.startSpan('A Task description', 'taskSlug' /* optional, will be created a-task-description, if missed */)
 
@@ -34,6 +37,7 @@ ctx.state.timings.stopSpan('A Task description' /* or 'taskSlug' or return from 
 ### Options
 
 * `total` where do you want to see total processing time in Server-Timings
+* `convertMetricUnit` in what format do you want the serverTimings metrics? (default is seconds)
 
 ## Example
 

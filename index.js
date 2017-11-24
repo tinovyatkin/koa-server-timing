@@ -5,7 +5,13 @@ function getSlug(str) {
   return str.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z-]/g, '');
 }
 
-module.exports = ({ total } = { total: process.env.NODE_ENV !== 'production' }) => async (ctx, next) => {
+const doNotConvertMetric = time => time;
+
+module.exports = ({ total, convertMetricUnit } = { total: process.env.NODE_ENV !== 'production', convertMetricUnit: null }) => async (ctx, next) => {
+  if (!convertMetricUnit) {
+    convertMetricUnit = doNotConvertMetric;
+  }
+
   // attaching timings object to state
   ctx.state.timings = {
     all: new Map(),
@@ -36,7 +42,7 @@ module.exports = ({ total } = { total: process.env.NODE_ENV !== 'production' }) 
   // constructing headers array
   const metrics = [];
   for (const [key, { stop: [ sec, nanosec ], desc }] of ctx.state.timings.all) {
-    metrics.push(`${key}=${sec}.${(nanosec / 1000000).toFixed(0).substr(0, 2)}${desc.length && key !== desc ? `; "${desc}"` : ''}`);
+    metrics.push(`${key}=${convertMetricUnit(sec)}.${convertMetricUnit(nanosec / 1000000).toFixed(0).substr(0, 2)}${desc.length && key !== desc ? `; "${desc}"` : ''}`);
   }
 
   // Adding our headers now
