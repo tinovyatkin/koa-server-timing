@@ -42,7 +42,7 @@ module.exports = ({ total, convertMetricUnit } = { total: process.env.NODE_ENV !
   // constructing headers array
   const metrics = [];
   for (const [key, { stop: [ sec, nanosec ], desc }] of ctx.state.timings.all) {
-    metrics.push(`${key}=${convertMetricUnit(sec)}.${convertMetricUnit(nanosec / 1000000).toFixed(0).substr(0, 2)}${desc.length && key !== desc ? `; "${desc}"` : ''}`);
+    metrics.push(`${key};dur=${convertMetricUnit(sec)}.${convertMetricUnit(nanosec / 1000000).toFixed(0).substr(0, 2)}${desc.length && key !== desc ? `;desc="${desc}"` : ''}`);
   }
 
   // Adding our headers now
