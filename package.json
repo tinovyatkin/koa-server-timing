@@ -39,7 +39,7 @@
     "eslint-plugin-jest": "^21.0.0",
     "eslint-plugin-promise": "6.0.0",
     "eslint-plugin-standard": "4.1.0",
-    "jest": "^21.0.0",
+    "jest": "27.5.1",
     "koa": "^2.0.0",
     "koa-route": "^3.2.0",
     "npmpub": "5.1.0",
