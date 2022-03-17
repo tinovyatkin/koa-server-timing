@@ -36,16 +36,16 @@
   "devDependencies": {
     "eslint": "8.11.0",
     "eslint-config-standard": "16.0.3",
-    "eslint-plugin-jest": "^21.0.0",
+    "eslint-plugin-jest": "21.27.2",
     "eslint-plugin-promise": "6.0.0",
     "eslint-plugin-standard": "4.1.0",
     "jest": "27.5.1",
-    "koa": "^2.0.0",
-    "koa-route": "^3.2.0",
+    "koa": "2.13.4",
+    "koa-route": "3.2.0",
     "npmpub": "5.1.0",
-    "remark-cli": "^4.0.0",
-    "remark-preset-lint-consistent": "^2.0.0",
-    "remark-preset-lint-recommended": "^3.0.0",
+    "remark-cli": "4.0.0",
+    "remark-preset-lint-consistent": "2.0.4",
+    "remark-preset-lint-recommended": "3.0.4",
     "supertest": "6.2.2"
   },
   "eslintConfig": {
