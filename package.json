@@ -46,7 +46,7 @@
     "remark-cli": "^4.0.0",
     "remark-preset-lint-consistent": "^2.0.0",
     "remark-preset-lint-recommended": "^3.0.0",
-    "supertest": "^3.0.0"
+    "supertest": "6.2.2"
   },
   "eslintConfig": {
     "plugins": [
